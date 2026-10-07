@@ -43,3 +43,15 @@ docker-compose up --build
 - **Frontend Workspace**: http://localhost:3000
 - **FastAPI Documentation**: http://localhost:8000/docs
 - **API Health Check**: http://localhost:8000/api/v1/health
+
+
+
+---
+
+## GitHub Deployment & CI/CD Pipeline
+
+To host or deploy this repository on **GitHub**:
+
+1. **GitHub Actions CI/CD Pipeline**:
+   - The included `.github/workflows/ci.yml` pipeline automatically triggers on every push and pull request.
+   - It executes the **backend pytest suite** (Python 3.12), verifies **frontend TypeScript typechecking and Vite production build** (Node 22), and checks **Docker Compose container build integrity**.
