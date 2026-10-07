@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Tag, Filter } from 'lucide-react';
+import { EventItem, Source } from '../types';
+import { fetchEvents, fetchSources } from '../services/api';
 
-export interface TimelineEvent {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  source_name: string;
-  description?: string;
-  entity_names: string[];
-}
-
-interface TimelineViewProps {
-  events: TimelineEvent[];
-}
-
-export const TimelineView: React.FC<TimelineViewProps> = ({ events }) => {
+export const TimelineView: React.FC = () => {
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [sources, setSources] = useState<Record<string, string>>({});
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+
+  useEffect(() => {
+    Promise.all([fetchEvents(), fetchSources()]).then(([evs, srcs]) => {
+      setEvents(evs);
+      const srcMap: Record<string, string> = {};
+      srcs.forEach((s) => (srcMap[s.id] = s.name));
+      setSources(srcMap);
+    }).catch(console.error);
+  }, []);
 
   const categories = Array.from(new Set(events.map((e) => e.category || 'General')));
 
@@ -24,7 +23,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({ events }) => {
     ? events
     : events.filter((e) => (e.category || 'General') === selectedCategory);
 
-  const sortedEvents = [...filteredEvents].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const sortedEvents = [...filteredEvents].sort((a, b) => {
+    const da = a.date ? new Date(a.date).getTime() : 0;
+    const db = b.date ? new Date(b.date).getTime() : 0;
+    return db - da;
+  });
 
   return (
     <div className="space-y-6">
@@ -33,7 +36,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({ events }) => {
           <Calendar className="w-5 h-5 text-[#38BDF8]" />
           <div>
             <h2 className="font-grotesk font-bold text-white text-lg">Event Chronology</h2>
-            <p className="text-xs text-[#8B98AB]">Filter dated occurrences across resolved entities</p>
+            <p className="text-xs text-[#8B98AB]">Real-time API dated occurrences across canonical entities</p>
           </div>
         </div>
 
@@ -63,7 +66,9 @@ export const TimelineView: React.FC<TimelineViewProps> = ({ events }) => {
                 <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#38BDF8]/15 text-[#38BDF8] border border-[#38BDF8]/30">
                   {ev.category || 'General'}
                 </span>
-                <span className="text-xs font-mono text-[#8B98AB]">{new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                <span className="text-xs font-mono text-[#8B98AB]">
+                  {ev.date ? new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : 'Undated'}
+                </span>
               </div>
 
               <h3 className="font-grotesk font-bold text-white text-base">{ev.title}</h3>
@@ -75,9 +80,9 @@ export const TimelineView: React.FC<TimelineViewProps> = ({ events }) => {
               <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs font-mono text-[#8B98AB]">
                 <div className="flex items-center space-x-1.5">
                   <Tag className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  <span>Entities: {ev.entity_names.join(', ') || 'N/A'}</span>
+                  <span>Entities Linked: {ev.entity_ids.length}</span>
                 </div>
-                <span className="text-[10px] opacity-75">Source: {ev.source_name}</span>
+                <span className="text-[10px] opacity-75">Source: {sources[ev.source_id] || ev.source_id}</span>
               </div>
             </div>
           </div>
@@ -85,7 +90,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({ events }) => {
 
         {sortedEvents.length === 0 && (
           <div className="glass-card p-8 rounded-xl text-center text-[#8B98AB] font-mono text-xs">
-            No chronological events recorded for this selection.
+            No events found in canonical store.
           </div>
         )}
       </div>

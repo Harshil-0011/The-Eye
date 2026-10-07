@@ -141,3 +141,59 @@ class SchemaMapper:
             })
 
         return entities, events
+
+import time
+import urllib.robotparser
+from urllib.parse import urlparse
+import requests
+
+class WebScraper:
+    """
+    Web scraper respecting robots.txt and enforcing per-domain rate limits.
+    """
+    _last_request_times: Dict[str, float] = {}
+    _robot_parsers: Dict[str, urllib.robotparser.RobotFileParser] = {}
+    MIN_REQUEST_INTERVAL = 1.0  # seconds between requests to same domain
+
+    @classmethod
+    def can_fetch(cls, url: str, user_agent: str = "TheEyeBot/1.0") -> bool:
+        parsed = urlparse(url)
+        domain = parsed.netloc
+        robots_url = f"{parsed.scheme}://{domain}/robots.txt"
+
+        if domain not in cls._robot_parsers:
+            rp = urllib.robotparser.RobotFileParser()
+            rp.set_url(robots_url)
+            try:
+                rp.read()
+            except Exception:
+                pass
+            cls._robot_parsers[domain] = rp
+
+        return cls._robot_parsers[domain].can_fetch(user_agent, url)
+
+    @classmethod
+    def fetch_page(cls, url: str, user_agent: str = "TheEyeBot/1.0") -> Tuple[bool, str]:
+        if not cls.can_fetch(url, user_agent):
+            return False, "Access disallowed by robots.txt"
+
+        parsed = urlparse(url)
+        domain = parsed.netloc
+
+        # Rate limiting
+        now = time.time()
+        last_time = cls._last_request_times.get(domain, 0.0)
+        elapsed = now - last_time
+        if elapsed < cls.MIN_REQUEST_INTERVAL:
+            time.sleep(cls.MIN_REQUEST_INTERVAL - elapsed)
+
+        cls._last_request_times[domain] = time.time()
+
+        headers = {"User-Agent": user_agent}
+        try:
+            resp = requests.get(url, headers=headers, timeout=10)
+            if resp.status_code == 200:
+                return True, resp.text
+            return False, f"HTTP Error {resp.status_code}"
+        except Exception as e:
+            return False, str(e)

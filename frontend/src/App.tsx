@@ -99,27 +99,6 @@ export default function App() {
     await loadData();
   };
 
-  const mockTimelineEvents = [
-    {
-      id: 'ev-1',
-      title: 'Acme Corp Advisory Board Summit',
-      date: '2024-03-15',
-      category: 'Corporate',
-      source_name: 'CSV Records',
-      description: 'Strategic review and board consensus on expansion.',
-      entity_names: ['John Doe', 'Acme Corp'],
-    },
-    {
-      id: 'ev-2',
-      title: 'Global Intelligence Briefing',
-      date: '2024-04-01',
-      category: 'Security',
-      source_name: 'PDF Digest',
-      description: 'Annual intelligence digest release covering primary sectors.',
-      entity_names: ['Carol Danvers'],
-    },
-  ];
-
   return (
     <div className="flex h-screen bg-[#0A0E14] text-white font-inter overflow-hidden">
       <Sidebar
@@ -165,7 +144,7 @@ export default function App() {
             )}
 
             {activeTab === 'timeline' && (
-              <TimelineView events={mockTimelineEvents} />
+              <TimelineView />
             )}
 
             {activeTab === 'entities' && (

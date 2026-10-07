@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api.v1 import search, graph, entities, documents, review, ingestion, analytics
+from backend.app.api.v1 import search, graph, entities, documents, review, ingestion, analytics, events
 
 app = FastAPI(title="The Eye — Intelligence & Data Fusion Platform", version="1.0.0")
 
@@ -19,6 +19,7 @@ app.include_router(documents.router, prefix="/api/v1/documents", tags=["document
 app.include_router(review.router, prefix="/api/v1/review", tags=["review"])
 app.include_router(ingestion.router, prefix="/api/v1/ingestion", tags=["ingestion"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["analytics"])
+app.include_router(events.router, prefix="/api/v1/events", tags=["events"])
 
 @app.get("/api/v1/health")
 def health_check():

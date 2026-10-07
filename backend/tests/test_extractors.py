@@ -25,3 +25,9 @@ def test_schema_mapper_inference_and_mapping():
     assert len(entities) == 1
     assert entities[0]["name"] == "Carol Danvers"
     assert entities[0]["properties"]["job_title"] == "Captain"
+
+def test_web_scraper_can_fetch():
+    from backend.app.services.extractors import WebScraper
+    # Simple URL check logic
+    allowed = WebScraper.can_fetch("http://example.com/public")
+    assert isinstance(allowed, bool)

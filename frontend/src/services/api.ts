@@ -1,4 +1,4 @@
-import { GraphData, SearchResponse, Entity, MergeRecord, Source, Document } from '../types';
+import { GraphData, SearchResponse, Entity, MergeRecord, Source, Document, EventItem } from '../types';
 
 const API_BASE = '/api/v1';
 
@@ -59,6 +59,14 @@ export async function fetchSources(): Promise<Source[]> {
 
 export async function fetchDocuments(): Promise<Document[]> {
   const res = await fetch(`${API_BASE}/documents`);
+  return res.json();
+}
+
+export async function fetchEvents(category?: string, entityId?: string): Promise<EventItem[]> {
+  const params = new URLSearchParams();
+  if (category) params.append('category', category);
+  if (entityId) params.append('entity_id', entityId);
+  const res = await fetch(`${API_BASE}/events?${params.toString()}`);
   return res.json();
 }
 

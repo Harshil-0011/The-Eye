@@ -56,3 +56,8 @@ def test_graph():
     res = client.get("/api/v1/graph")
     assert res.status_code == 200
     assert len(res.json()["nodes"]) == 2
+
+def test_events_endpoint():
+    res = client.get("/api/v1/events")
+    assert res.status_code == 200
+    assert isinstance(res.json(), list)

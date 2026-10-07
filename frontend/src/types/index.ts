@@ -94,3 +94,15 @@ export interface Document {
   extraction_date: string;
   metadata_json: Record<string, any>;
 }
+
+export interface EventItem {
+  id: string;
+  source_id: string;
+  title: string;
+  date?: string;
+  category?: string;
+  description?: string;
+  entity_ids: string[];
+  properties: Record<string, any>;
+  created_at: string;
+}
