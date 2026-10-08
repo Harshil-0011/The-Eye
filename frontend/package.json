@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && cp -r dist/* ../docs/ && cp -r dist/* ../ && touch ../.nojekyll && touch ../docs/.nojekyll",
     "preview": "vite preview"
   },
   "dependencies": {
