@@ -55,3 +55,18 @@ To host or deploy this repository on **GitHub**:
 1. **GitHub Actions CI/CD Pipeline**:
    - The included `.github/workflows/ci.yml` pipeline automatically triggers on every push and pull request.
    - It executes the **backend pytest suite** (Python 3.12), verifies **frontend TypeScript typechecking and Vite production build** (Node 22), and checks **Docker Compose container build integrity**.
+
+
+---
+
+## Hosting live on GitHub Pages
+
+This repository is configured to automatically build and host the interactive web workspace on **GitHub Pages** whenever you push code.
+
+1. **Enable GitHub Pages in repository settings**:
+   - Go to **Settings** -> **Pages** in your GitHub repository.
+   - Under **Build and deployment** -> **Source**, select **GitHub Actions**.
+
+2. **Automatic Deployment**:
+   - The workflow in `.github/workflows/pages.yml` will automatically build the React single-page app and publish it to `https://<YOUR_USERNAME>.github.io/<YOUR_REPO>/`.
+   - When hosted on GitHub Pages, the frontend automatically runs in interactive demo mode using embedded intelligence records (entities, knowledge graph, timeline, and documents) if a backend server is not connected.
