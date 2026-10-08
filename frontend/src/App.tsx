@@ -10,6 +10,10 @@ import { DocumentsView } from './pages/DocumentsView';
 import { ReviewQueueView } from './pages/ReviewQueueView';
 import { SourcesView } from './pages/SourcesView';
 import { AnalyticsView } from './pages/AnalyticsView';
+import { MapView } from './pages/MapView';
+import { FinancialView } from './pages/FinancialView';
+import { ThreatMatrixView } from './pages/ThreatMatrixView';
+import { OntologyView } from './pages/OntologyView';
 import { GraphNode, GraphData, SearchResponse, Entity, MergeRecord, Source, Document } from './types';
 import {
   fetchGraphData,
@@ -144,8 +148,24 @@ export default function App() {
               </div>
             )}
 
+            {activeTab === 'map' && (
+              <MapView entities={entities} />
+            )}
+
             {activeTab === 'timeline' && (
               <TimelineView />
+            )}
+
+            {activeTab === 'financial' && (
+              <FinancialView />
+            )}
+
+            {activeTab === 'threat' && (
+              <ThreatMatrixView entities={entities} />
+            )}
+
+            {activeTab === 'ontology' && (
+              <OntologyView />
             )}
 
             {activeTab === 'entities' && (

@@ -7,7 +7,11 @@ import {
   FileText,
   GitMerge,
   Database,
-  BarChart2
+  BarChart2,
+  Compass,
+  DollarSign,
+  ShieldAlert,
+  Layers
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,7 +24,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, pendi
   const navItems = [
     { id: 'search', label: 'Search', icon: Search },
     { id: 'graph', label: 'Graph Explorer', icon: Network },
+    { id: 'map', label: 'Tactical Map', icon: Compass },
     { id: 'timeline', label: 'Timeline', icon: Clock },
+    { id: 'financial', label: 'Financial Flow', icon: DollarSign },
+    { id: 'threat', label: 'Threat Matrix', icon: ShieldAlert },
+    { id: 'ontology', label: 'Ontology', icon: Layers },
     { id: 'entities', label: 'Entities', icon: Users },
     { id: 'documents', label: 'Documents', icon: FileText },
     { id: 'review', label: 'Review Queue', icon: GitMerge, badge: pendingReviewCount },
@@ -37,11 +45,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, pendi
           </div>
           <div>
             <h1 className="font-grotesk text-lg font-bold tracking-tight text-white">THE EYE</h1>
-            <p className="text-[10px] text-[#8B98AB] tracking-wider uppercase font-mono">Personal Workspace</p>
+            <p className="text-[10px] text-[#8B98AB] tracking-wider uppercase font-mono">Palantir Workspace</p>
           </div>
         </div>
 
-        <nav className="p-3 space-y-1">
+        <nav className="p-2 space-y-0.5">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -49,18 +57,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, pendi
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3.5 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`w-full flex items-center justify-between px-3 py-1.5 rounded text-xs font-medium transition-colors ${
                   isActive
                     ? 'bg-[#121822] text-[#38BDF8] border border-[#38BDF8]/40'
                     : 'text-[#8B98AB] hover:text-white hover:bg-white/5'
                 }`}
               >
-                <div className="flex items-center space-x-3">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#38BDF8]' : 'text-[#8B98AB]'}`} />
+                <div className="flex items-center space-x-2.5">
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#38BDF8]' : 'text-[#8B98AB]'}`} />
                   <span className="font-inter">{item.label}</span>
                 </div>
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 rounded">
+                  <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold bg-amber-500/20 text-amber-400 rounded">
                     {item.badge}
                   </span>
                 )}
@@ -73,7 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, pendi
       <div className="p-4 border-t border-white/10 text-xs text-[#8B98AB] font-mono flex items-center justify-between">
         <span className="flex items-center space-x-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>Workspace Active</span>
+          <span>Foundry Sync Active</span>
         </span>
         <span className="text-[10px] opacity-60">v1.0.0</span>
       </div>
