@@ -59,7 +59,7 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
           selector: 'node',
           style: {
             'background-color': '#121822',
-            'border-width': 2,
+            'border-width': 1.5,
             'border-color': 'rgba(255, 255, 255, 0.2)',
             'label': 'data(label)',
             'color': '#FFFFFF',
@@ -67,10 +67,10 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
             'font-size': '11px',
             'text-valign': 'bottom',
             'text-margin-y': 6,
-            'width': 28,
-            'height': 28,
+            'width': 24,
+            'height': 24,
             'transition-property': 'background-color, border-color, bounds',
-            'transition-duration': 0.2,
+            'transition-duration': 0.15,
           },
         },
         {
@@ -86,23 +86,17 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
           },
         },
         {
-          selector: 'node[type = "LOCATION"]',
-          style: {
-            'border-color': '#34D399',
-          },
-        },
-        {
           selector: 'node:selected',
           style: {
             'border-color': '#38BDF8',
-            'border-width': 4,
+            'border-width': 3,
             'background-color': '#38BDF8',
           },
         },
         {
           selector: 'edge',
           style: {
-            'width': 1.5,
+            'width': 1,
             'line-color': 'rgba(255, 255, 255, 0.15)',
             'target-arrow-color': 'rgba(255, 255, 255, 0.25)',
             'target-arrow-shape': 'triangle',
@@ -112,7 +106,7 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
             'font-family': 'JetBrains Mono, monospace',
             'font-size': '9px',
             'text-rotation': 'autorotate',
-            'text-background-opacity': 0.8,
+            'text-background-opacity': 0.9,
             'text-background-color': '#0A0E14',
             'text-background-padding': '2px',
           },
@@ -122,14 +116,14 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
           style: {
             'line-color': '#38BDF8',
             'target-arrow-color': '#38BDF8',
-            'width': 2.5,
+            'width': 2,
           },
         },
       ],
       layout: {
         name: layoutName,
         animate: true,
-        animationDuration: 400,
+        animationDuration: 300,
       },
     });
 
@@ -182,40 +176,20 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
   const edgeTypes = Array.from(new Set(graphData.edges.map((e) => e.type)));
 
   return (
-    <div className="relative w-full h-full bg-[#0A0E14] rounded-xl overflow-hidden border border-white/10 min-h-[500px]">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-      />
-
+    <div className="relative w-full h-full bg-[#0A0E14] rounded-md border border-white/10 overflow-hidden min-h-[500px]">
       <div ref={containerRef} className="w-full h-full relative z-0 min-h-[500px]" />
 
-      <div className="absolute top-4 left-4 z-10 glass-panel p-2 rounded-lg flex items-center space-x-2 text-xs font-mono">
-        <button
-          onClick={handleZoomIn}
-          title="Zoom In"
-          className="p-1.5 hover:bg-white/10 rounded text-[#8B98AB] hover:text-white transition"
-        >
-          <ZoomIn className="w-4 h-4" />
+      <div className="absolute top-3 left-3 z-10 bg-[#121822] border border-white/10 p-1.5 rounded-md flex items-center space-x-2 text-xs font-mono">
+        <button onClick={handleZoomIn} title="Zoom In" className="p-1 hover:bg-white/10 rounded text-[#8B98AB] hover:text-white">
+          <ZoomIn className="w-3.5 h-3.5" />
         </button>
-        <button
-          onClick={handleZoomOut}
-          title="Zoom Out"
-          className="p-1.5 hover:bg-white/10 rounded text-[#8B98AB] hover:text-white transition"
-        >
-          <ZoomOut className="w-4 h-4" />
+        <button onClick={handleZoomOut} title="Zoom Out" className="p-1 hover:bg-white/10 rounded text-[#8B98AB] hover:text-white">
+          <ZoomOut className="w-3.5 h-3.5" />
         </button>
-        <button
-          onClick={handleReset}
-          title="Fit View"
-          className="p-1.5 hover:bg-white/10 rounded text-[#8B98AB] hover:text-white transition"
-        >
-          <Maximize2 className="w-4 h-4" />
+        <button onClick={handleReset} title="Fit View" className="p-1 hover:bg-white/10 rounded text-[#8B98AB] hover:text-white">
+          <Maximize2 className="w-3.5 h-3.5" />
         </button>
-        <div className="h-4 w-px bg-white/10" />
+        <div className="h-3 w-px bg-white/10" />
 
         <select
           value={layoutName}
@@ -228,7 +202,7 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
           <option value="breadthfirst" className="bg-[#121822]">Hierarchical</option>
         </select>
 
-        <div className="h-4 w-px bg-white/10" />
+        <div className="h-3 w-px bg-white/10" />
 
         <div className="flex items-center space-x-1">
           <Filter className="w-3 h-3 text-[#38BDF8]" />
@@ -244,33 +218,23 @@ export const GraphExplorer: React.FC<GraphExplorerProps> = ({
           </select>
         </div>
 
-        <div className="h-4 w-px bg-white/10" />
+        <div className="h-3 w-px bg-white/10" />
 
-        <button
-          onClick={handleExportPNG}
-          title="Export PNG"
-          className="p-1.5 hover:bg-white/10 rounded text-[#38BDF8] transition flex items-center space-x-1"
-        >
-          <Download className="w-4 h-4" />
-          <span className="text-[10px] uppercase font-bold">Export</span>
+        <button onClick={handleExportPNG} title="Export PNG" className="p-1 text-[#38BDF8] hover:underline flex items-center space-x-1">
+          <Download className="w-3.5 h-3.5" />
+          <span className="text-[10px] font-bold">Export</span>
         </button>
       </div>
 
-      <div className="absolute bottom-4 right-4 z-10 glass-panel p-3 rounded-lg text-xs font-mono space-y-1.5 pointer-events-none">
-        <div className="text-[10px] uppercase tracking-wider text-[#8B98AB] font-bold border-b border-white/10 pb-1">
-          Entity Legend
+      <div className="absolute bottom-3 right-3 z-10 bg-[#121822] border border-white/10 p-2.5 rounded-md text-xs font-mono space-y-1 pointer-events-none">
+        <div className="text-[10px] uppercase text-[#8B98AB] font-bold border-b border-white/10 pb-1">Legend</div>
+        <div className="flex items-center space-x-2">
+          <span className="w-2 h-2 rounded-full border border-[#38BDF8] bg-[#121822]" />
+          <span className="text-white text-[11px]">Person</span>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="w-2.5 h-2.5 rounded-full border-2 border-[#38BDF8] bg-[#121822]" />
-          <span className="text-white">Person</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span className="w-2.5 h-2.5 rounded-full border-2 border-[#818CF8] bg-[#121822]" />
-          <span className="text-white">Organization</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span className="w-2.5 h-2.5 rounded-full border-2 border-[#34D399] bg-[#121822]" />
-          <span className="text-white">Location</span>
+          <span className="w-2 h-2 rounded-full border border-[#818CF8] bg-[#121822]" />
+          <span className="text-white text-[11px]">Organization</span>
         </div>
       </div>
     </div>
