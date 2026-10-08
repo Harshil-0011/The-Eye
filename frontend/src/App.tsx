@@ -4,6 +4,7 @@ import { TopBar } from './components/TopBar';
 import { DetailPanel } from './components/DetailPanel';
 import { GraphExplorer } from './components/GraphExplorer';
 import { TimelineView } from './components/TimelineView';
+import { CloudBackground } from './components/CloudBackground';
 import { SearchView } from './pages/SearchView';
 import { EntitiesView } from './pages/EntitiesView';
 import { DocumentsView } from './pages/DocumentsView';
@@ -31,6 +32,7 @@ import {
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('graph');
   const [globalQuery, setGlobalQuery] = useState<string>('');
+  const [cloudTheme, setCloudTheme] = useState<'NIGHT' | 'GOLDEN' | 'STORM' | 'HIGH_ALTITUDE'>('NIGHT');
 
   const [graphData, setGraphData] = useState<GraphData>({ nodes: [], edges: [] });
   const [searchData, setSearchData] = useState<SearchResponse | null>(null);
@@ -105,21 +107,26 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen bg-[#0A0E14] text-white font-inter overflow-hidden">
+    <div className="flex h-screen bg-[#0A0E14] text-white font-inter overflow-hidden relative">
+      {/* Live Ambient Animated Cloud Canvas */}
+      <CloudBackground theme={cloudTheme} />
+
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         pendingReviewCount={reviewRecords.length}
       />
 
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col h-screen overflow-hidden z-10">
         <TopBar
           globalQuery={globalQuery}
           setGlobalQuery={setGlobalQuery}
           onSearchSubmit={handleSearchSubmit}
+          cloudTheme={cloudTheme}
+          setCloudTheme={setCloudTheme}
         />
 
-        <main className="flex-1 flex relative overflow-hidden bg-[#0A0E14]">
+        <main className="flex-1 flex relative overflow-hidden bg-transparent">
           <div className="flex-1 overflow-y-auto p-6">
             {activeTab === 'search' && (
               <SearchView
