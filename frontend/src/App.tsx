@@ -9,6 +9,7 @@ import { EntitiesView } from './pages/EntitiesView';
 import { DocumentsView } from './pages/DocumentsView';
 import { ReviewQueueView } from './pages/ReviewQueueView';
 import { SourcesView } from './pages/SourcesView';
+import { AnalyticsView } from './pages/AnalyticsView';
 import { GraphNode, GraphData, SearchResponse, Entity, MergeRecord, Source, Document } from './types';
 import {
   fetchGraphData,
@@ -168,27 +169,7 @@ export default function App() {
             )}
 
             {activeTab === 'analytics' && (
-              <div className="glass-panel p-8 rounded-xl space-y-6">
-                <h2 className="text-2xl font-bold font-grotesk text-[#38BDF8]">System Intelligence Analytics</h2>
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div className="glass-card p-4 rounded-xl">
-                    <p className="text-xs text-[#8B98AB] font-mono">Entities</p>
-                    <p className="text-2xl font-bold font-grotesk text-white">{entities.length}</p>
-                  </div>
-                  <div className="glass-card p-4 rounded-xl">
-                    <p className="text-xs text-[#8B98AB] font-mono">Edges</p>
-                    <p className="text-2xl font-bold font-grotesk text-white">{graphData.edges.length}</p>
-                  </div>
-                  <div className="glass-card p-4 rounded-xl">
-                    <p className="text-xs text-[#8B98AB] font-mono">Sources</p>
-                    <p className="text-2xl font-bold font-grotesk text-white">{sources.length}</p>
-                  </div>
-                  <div className="glass-card p-4 rounded-xl">
-                    <p className="text-xs text-[#8B98AB] font-mono">Review Queue</p>
-                    <p className="text-2xl font-bold font-grotesk text-amber-400">{reviewRecords.length}</p>
-                  </div>
-                </div>
-              </div>
+              <AnalyticsView />
             )}
           </div>
 

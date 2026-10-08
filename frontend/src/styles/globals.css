@@ -4,33 +4,43 @@
 
 @layer utilities {
   .glass-panel {
-    background: rgba(18, 24, 34, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(18, 24, 34, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(56, 189, 248, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
   .glass-card {
-    background: rgba(18, 24, 34, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .glass-card:hover {
-    border-color: rgba(56, 189, 248, 0.3);
-  }
-
-  .glass-pill {
     background: rgba(18, 24, 34, 0.6);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  }
+
+  .glass-pill {
+    background: rgba(18, 24, 34, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(56, 189, 248, 0.25);
   }
 
   .sky-glow {
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+  }
+
+  .radar-grid {
+    background-image:
+      radial-gradient(rgba(56, 189, 248, 0.25) 1px, transparent 1px),
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px, 48px 48px, 48px 48px;
   }
 }
 
@@ -44,7 +54,7 @@
 ::-webkit-scrollbar-thumb {
   background: #121822;
   border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.3);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #38BDF8;
