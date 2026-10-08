@@ -1,0 +1,8 @@
+name,type,role,email,domain,city
+Alexander Vance,PERSON,Chief Technology Officer,alex.vance@cyberdyne.io,cyberdyne.io,San Francisco
+Cyberdyne Systems,ORGANIZATION,AI Research,contact@cyberdyne.io,cyberdyne.io,San Francisco
+Dr. Sarah Connor,PERSON,Lead Robotics Researcher,sarah.connor@cyberdyne.io,cyberdyne.io,San Francisco
+Alex Vance,PERSON,Consultant,alex.vance@cyberdyne.io,cyberdyne.io,San Francisco
+Apex Cybernetics,ORGANIZATION,Defense Systems,info@apexcyber.com,apexcyber.com,Austin
+Elena Rostova,PERSON,Executive Vice President,elena.rostova@apexcyber.com,apexcyber.com,Austin
+E. Rostova,PERSON,Board Director,elena.rostova@apexcyber.com,apexcyber.com,Austin

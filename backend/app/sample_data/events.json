@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Cyberdyne Autonomous AI Framework Unveiling",
+    "date": "2024-03-15",
+    "category": "Corporate",
+    "description": "Public demonstration of next-gen neural network model led by Alexander Vance.",
+    "entity_name": "Cyberdyne Systems"
+  },
+  {
+    "title": "Apex Cybernetics Strategic Defense Partnership",
+    "date": "2024-04-10",
+    "category": "Partnership",
+    "description": "Multi-year defense technology contract signed by Elena Rostova.",
+    "entity_name": "Apex Cybernetics"
+  },
+  {
+    "title": "Titan AI Joint Technical Summit",
+    "date": "2024-05-22",
+    "category": "Technical",
+    "description": "Joint summit between Cyberdyne and Apex technical committees.",
+    "entity_name": "Alexander Vance"
+  }
+]
